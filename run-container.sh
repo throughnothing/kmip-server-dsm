@@ -12,6 +12,13 @@ else
 fi
 
 WORKDIR=$(cd -- "$(dirname -- "$0")" && pwd)
+VAULTDIR="$WORKDIR/kmipvault"
+
+if [ -d "$VAULTDIR/certs" -a -d "$VAULTDIR/state" ]; then
+   export WORKDIR=$VAULTDIR
+fi
+
+echo "Using Workdir: $WORKDIR"
 
 if $CM ps -a | grep dsm-kmip-server >/dev/null 2>&1; then
     echo "=== Cleaning up old container"
